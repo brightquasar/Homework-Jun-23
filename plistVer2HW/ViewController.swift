@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
 // Here we get our people data, by calling pathForResource on our bundle, casting it as an array of dictionaries
 // parsing the array of dictionaries, and appending each person the the
-// *** I was only able to created one dictionary with two entries in a plist file, so I moved the demo plist into my project ...
+// *** I was only able to created one dictionary with two entries (sort-of) in a plist file, so I moved the demo plist into my project ...
 // ... and edited its content (that should work though ???)
   private func loadPeopleFromPlist() {
     if let peoplePath = NSBundle.mainBundle().pathForResource("People", ofType: "plist"),
@@ -117,6 +117,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     if let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? PersonCell {
+    //if let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell") {
       let personToDisplay = self.people[indexPath.row]
         if let image = personToDisplay.image {  // optional binding of ... people[indexPath.row]
           cell.personImageView.image = image  // cell is from iffy forced downcast (an optional??)
@@ -125,7 +126,8 @@ class ViewController: UIViewController, UITableViewDataSource {
       cell.lastNameLabel.text = personToDisplay.lastName
       return cell
     } else {
-      let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PersonCell
+      //let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PersonCell
+      let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell") // still crashes!
       let personToDisplay = people[indexPath.row]
       return cell
     }
